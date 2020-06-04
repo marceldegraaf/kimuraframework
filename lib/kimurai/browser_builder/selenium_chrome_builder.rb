@@ -110,6 +110,13 @@ module Kimurai::BrowserBuilder
         end
 
         chromedriver_path = Kimurai.configuration.chromedriver_path || "/usr/local/bin/chromedriver"
+
+        if ENV['SCRAPER_EXTENSION_BASE64']
+          driver_options.add_encoded_extension(ENV['SCRAPER_EXTENSION_BASE64'])
+        elsif ENV['SCRAPER_EXTENSION_PATH']
+          driver_options.add_extension(ENV['SCRAPER_EXTENSION_PATH'])
+        end
+
         service = Selenium::WebDriver::Service.chrome(path: chromedriver_path)
         Capybara::Selenium::Driver.new(app, browser: :chrome, options: driver_options, service: service)
       end
