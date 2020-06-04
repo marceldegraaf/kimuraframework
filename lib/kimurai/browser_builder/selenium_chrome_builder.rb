@@ -84,7 +84,7 @@ module Kimurai::BrowserBuilder
 
         if user_agent = @config[:user_agent].presence
           user_agent_string = (user_agent.class == Proc ? user_agent.call : user_agent).strip
-          driver_options.args << "--user-agent='#{user_agent_string}'"
+          driver_options.args << "--user-agent=#{user_agent_string}"
           logger.debug "BrowserBuilder (selenium_chrome): enabled custom user_agent"
         end
 
